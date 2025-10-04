@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Language</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6A1FCC;
+            --secondary-color: #FFB800;
+            --background-color: #F8F9FA;
+            --text-neutral: #343A40;
+            --subtle-gray: #CED4DA;
+            --white: #FFFFFF;
+            --hero-overlay: rgba(0, 0, 0, 0.6);
+            --container-max-width: 1140px;
+            --spacing-unit: 8px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--background-color);
+            color: var(--text-neutral);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 calc(var(--spacing-unit) * 1.875); /* 15px */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--text-neutral);
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 56px; font-weight: 700;
+        }
+        h2 {
+            font-size: 40px; font-weight: 600;
+        }
+        h3 {
+            font-size: 28px; font-weight: 600;
+        }
+        h4 {
+            font-size: 22px; font-weight: 600;
+        }
+        p {
+            font-size: 18px; font-weight: 400;
+        }
+        small {
+            font-size: 14px; font-weight: 400;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4); /* 16px 32px */
+            border-radius: calc(var(--spacing-unit) * 1); /* 8px */
+            font-family: var(--font-heading);
+            font-size: 18px; font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background-color: #5213A6;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-neutral);
+        }
+        .btn-secondary:hover {
+            background-color: #E6A100;
+        }
+
+        .card {
+            background-color: var(--white);
+            padding: calc(var(--spacing-unit) * 3); /* 24px */
+            border-radius: calc(var(--spacing-unit) * 2); /* 16px */
+            box-shadow: 0 calc(var(--spacing-unit)) calc(var(--spacing-unit) * 3) rgba(0, 0, 0, 0.1); /* 0 8px 24px */
+            border: 1px solid #E0E0E0;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            text-align: center;
+        }
+        .card:hover {
+            transform: translateY(calc(var(--spacing-unit) * -1)); /* -8px */
+            box-shadow: 0 calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4) rgba(0, 0, 0, 0.15); /* 0 16px 32px */
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: calc(var(--spacing-unit) * 4) 0; /* 32px 0 */
+            border-bottom: 1px solid var(--subtle-gray);
+            position: sticky;
+            top: 0;
+            background-color: var(--background-color);
+            z-index: 1000;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-size: 28px; font-weight: 700;
+        }
+        .logo .icon {
+            margin-right: calc(var(--spacing-unit) * 1.5); /* 12px */
+            width: 48px; height: 48px;
+            /* Add robot icon styles here */
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-robot"><path d="M12 8v4.5M12 17.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M7.5 12.5h0a1.5 1.5 0 1 0 0-3h0a1.5 1.5 0 0 0 0 3Z"/><path d="M16.5 12.5h0a1.5 1.5 0 1 0 0-3h0a1.5 1.5 0 0 0 0 3Z"/><path d="M20 11.5a8 8 0 1 1-16 0"/><path d="M12 14.5v5.5"/></svg>') center center / contain no-repeat;
+            animation: blink 2s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: calc(var(--spacing-unit) * 3); /* 24px */
+        }
+        nav a {
+            color: var(--text-neutral);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease-in-out;
+        }
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: url('https://images.unsplash.com/photo-1517486922797-e6b5742e0934?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center/cover no-repeat;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--hero-overlay);
+        }
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            color: var(--white);
+        }
+        .hero h1 {
+            color: var(--white);
+            margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+        }
+        .hero h2 {
+            font-size: 32px;
+            color: var(--white);
+            margin-bottom: calc(var(--spacing-unit) * 4); /* 32px */
+        }
+
+        /* Introduction/Problem-Solution */
+        .intro {
+            padding: calc(var(--spacing-unit) * 8) 0; /* 64px 0 */
+        }
+        .intro .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: calc(var(--spacing-unit) * 6); /* 48px */
+            align-items: center;
+        }
+        .intro-text p {
+            margin-top: calc(var(--spacing-unit) * 2); /* 16px */
+            margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+        }
+        .intro-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Core Concepts */
+        .concepts {
+            padding: calc(var(--spacing-unit) * 8) 0; /* 64px 0 */
+        }
+        .concepts h2 {
+            text-align: center;
+            margin-bottom: calc(var(--spacing-unit) * 6); /* 48px */
+        }
+        .concepts .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: calc(var(--spacing-unit) * 6); /* 48px */
+        }
+        .concept-icon {
+            width: 48px; height: 48px;
+            margin: 0 auto calc(var(--spacing-unit) * 1.5); /* 12px */
+            /* Add icon styles here */
+        }
+        .concept-icon.brain {
+             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain-circuit"><path d="M12 6a3 3 0 0 0-3-3H7a4 4 0 0 0-4 4v2a4 4 0 0 0 4 4h2"/><path d="M12 6a3 3 0 0 1 3-3h2a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4h-2a3 3 0 0 1-3-3"/><path d="M10 15a6 6 0 0 0 12 0v-2a6 6 0 0 0-6-6H10v-3a4 4 0 0 0-4-4H4a4 4 0 0 0 4 4h2a6 6 0 0 1 6 6v2Z"/><path d="M12 18a4 4 0 0 0 4-4v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2a4 4 0 0 0 4 4h4Z"/><path d="M14 21a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h6Z"/></svg>') center center / contain no-repeat;
+             fill: var(--primary-color);
+        }
+        .concept-icon.chat {
+             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-cog"><path d="M20 14.5v.5a3.5 3.5 0 0 1-3.5 3.5L16 21l-3.5-3.5a3.5 3.5 0 0 1-5-4.9V7a3.5 3.5 0 0 1 3.5-3.5h8a3.5 3.5 0 0 1 3.5 3.5v8.5Z"/><path d="M15.5 17h-2.6a2.4 2.4 0 0 0-2.4 2.4v.6a2.4 2.4 0 0 0 2.4 2.4h2.6a2.4 2.4 0 0 0 2.4-2.4v-.6a2.4 2.4 0 0 0-2.4-2.4Z"/><path d="M13.9 19.9V17"/><path d="M14.5 18h2.6"/></svg>') center center / contain no-repeat;
+             fill: var(--primary-color);
+        }
+        .concept-icon.toolkit {
+             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-toolbox"><path d="M2 15h20M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M6 15V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8"/></svg>') center center / contain no-repeat;
+             fill: var(--secondary-color);
+        }
+        .concept-icon.rocket {
+             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rocket"><path d="M5 21h14l1.5-3a1.5 1.5 0 0 0-.2-1.7l-3.7-4.3c.4-.1.8-.3 1.2-.5l1.5-3a1.5 1.5 0 0 0-.7-1.9l-3-1.5a1.5 1.5 0 0 0-1.3.2L12 5.5 9.7 3.9a1.5 1.5 0 0 0-1.3-.2l-3-1.5a1.5 1.5 0 0 0-.7 1.9l1.5 3c.4.2.8.4 1.2.5L4.7 15a1.5 1.5 0 0 0-.2 1.7L5 21Z"/><path d="M9 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg>') center center / contain no-repeat;
+             fill: var(--primary-color);
+        }
+        .concepts .card h4 {
+            margin-top: calc(var(--spacing-unit) * 2); /* 16px */
+        }
+        .concepts .card p {
+            font-size: 16px; /* Slightly smaller for cards */
+            margin-top: calc(var(--spacing-unit)); /* 8px */
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: calc(var(--spacing-unit) * 8) 0; /* 64px 0 */
+            background-color: var(--white);
+            text-align: center;
+        }
+        .testimonials h2 {
+            margin-bottom: calc(var(--spacing-unit) * 6); /* 48px */
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: calc(var(--spacing-unit) * 6); /* 48px */
+        }
+        .testimonial-card {
+            text-align: center;
+        }
+        .testimonial-card img {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+            border: 4px solid var(--primary-color);
+        }
+        .testimonial-card .quote-bubble {
+            position: relative;
+            background-color: var(--white);
+            padding: calc(var(--spacing-unit) * 3); /* 24px */
+            border-radius: calc(var(--spacing-unit) * 2); /* 16px */
+            box-shadow: 0 calc(var(--spacing-unit)) calc(var(--spacing-unit) * 3) rgba(0, 0, 0, 0.08); /* 0 8px 24px */
+            margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+        }
+        .testimonial-card .quote-bubble::before {
+            content: '\201C'; /* Opening quote */
+            font-size: 40px;
+            color: var(--secondary-color);
+            position: absolute;
+            top: 10px;
+            left: 15px;
+        }
+         .testimonial-card .quote-bubble::after {
+            content: '\201D'; /* Closing quote */
+            font-size: 40px;
+            color: var(--secondary-color);
+            position: absolute;
+            bottom: -10px;
+            right: 15px;
+        }
+        .testimonial-card .quote-text {
+            font-style: italic;
+            color: var(--text-neutral);
+        }
+        .testimonial-card .name {
+            font-weight: 600;
+            color: var(--text-neutral);
+            margin-top: calc(var(--spacing-unit)); /* 8px */
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: calc(var(--spacing-unit) * 8) 0; /* 64px 0 */
+            text-align: center;
+        }
+        .how-it-works h2 {
+            margin-bottom: calc(var(--spacing-unit) * 6); /* 48px */
+        }
+        .how-it-works .steps {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: calc(var(--spacing-unit) * 6); /* 48px */
+        }
+        .how-it-works .step-icon {
+            width: 64px; height: 64px;
+            margin-bottom: calc(var(--spacing-unit) * 3); /* 24px */
+            fill: var(--primary-color);
+        }
+        .how-it-works .step-icon.search {
+             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-check"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>') center center / contain no-repeat;
+        }
+         .how-it-works .step-icon.lightbulb {
+             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb"><path d="M15 14c.5-1.3 1.4-2.1 2.6-2.4a2 2 0 0 0 1.1-3.7c-1-1-2.1-1.2-3.2-.7a2 2 0 0 0-1.7 2.1c.6 1.2 1.4 2 2.3 2.7Z"/><path d="M11.5 19a7 7 0 1 0 1 0"/></svg>') center center / contain no-repeat;
+        }
+        .how-it-works .step-icon.cpu {
+             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9"/><path d="M12 6v3"/><path d="M12 15v3"/><path d="M6 12h3"/><path d="M15 12h3"/></svg>') center center / contain no-repeat;
+        }
+        .how-it-works h4 {
+            margin-top: calc(var(--spacing-unit) * 2); /* 16px */
+        }
+        .how-it-works p {
+            font-size: 16px;
+            margin-top: calc(var(--spacing-unit)); /* 8px */
+        }
+
+        /* Call to Action (Bottom) */
+        .cta-bottom {
+            padding: calc(var(--spacing-unit) * 8) 0; /* 64px 0 */
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+        }
+        .cta-bottom h2 {
+            color: var(--white);
+            margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+        }
+        .cta-bottom p {
+            font-size: 18px;
+            margin-bottom: calc(var(--spacing-unit) * 4); /* 32px */
+        }
+        .cta-bottom .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-neutral);
+        }
+        .cta-bottom .btn-secondary:hover {
+            background-color: #E6A100;
+        }
+
+        /* Footer */
+        footer {
+            padding: calc(var(--spacing-unit) * 4) 0; /* 32px 0 */
+            background-color: var(--white);
+            border-top: 1px solid var(--subtle-gray);
+            text-align: center;
+        }
+        footer .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: calc(var(--spacing-unit) * 3); /* 24px */
+            margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+        }
+        footer .nav-links a {
+            color: var(--text-neutral);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease-in-out;
+        }
+        footer .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        footer .social-icons {
+            margin-bottom: calc(var(--spacing-unit) * 2); /* 16px */
+            display: flex;
+            justify-content: center;
+            gap: calc(var(--spacing-unit) * 2); /* 16px */
+        }
+        .social-icons a {
+            text-decoration: none;
+            fill: var(--primary-color);
+            transition: fill 0.3s ease-in-out;
+        }
+        .social-icons a:hover {
+            fill: var(--secondary-color);
+        }
+        footer .copyright small {
+            color: var(--subtle-gray);
+        }
+
+        /* Illustrations */
+        .intro-image.problem img {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-puzzle-piece"><path d="M9.5 4.5a2.5 2.5 0 1 1 5 0V7a2 2 0 0 0 2 2h2.5a2.5 2.5 0 1 1 0 5v2a2 2 0 0 0-2 2h-2.5a2.5 2.5 0 1 1-5 0V17a2 2 0 0 0-2-2H7a2.5 2.5 0 1 1 0-5H9.5a2 2 0 0 0 2-2V7a2.5 2.5 0 0 1 2.5-2.5Z"/></svg>');
+            width: 80%;
+            margin: 0 auto;
+        }
+        .intro-image.solution img {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brain-circuit"><path d="M12 6a3 3 0 0 0-3-3H7a4 4 0 0 0-4 4v2a4 4 0 0 0 4 4h2"/><path d="M12 6a3 3 0 0 1 3-3h2a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4h-2a3 3 0 0 1-3-3"/><path d="M10 15a6 6 0 0 0 12 0v-2a6 6 0 0 0-6-6H10v-3a4 4 0 0 0-4-4H4a4 4 0 0 0 4 4h2a6 6 0 0 1 6 6v2Z"/><path d="M12 18a4 4 0 0 0 4-4v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2a4 4 0 0 0 4 4h4Z"/><path d="M14 21a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h6Z"/></svg>');
+            width: 80%;
+            margin: 0 auto;
+        }
+        .cta-bottom .illustration {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-handshake"><path d="M11 20H6a2 2 0 0 1-2-2v-5l3-3"/><path d="M7 3.5a2.5 2.5 0 0 1 5 0V7a2.5 2.5 0 0 0 5 0v7a2.5 2.5 0 0 1-2.5 2.5h-4.4a2.5 2.5 0 0 0-1.7 0.7L10 22"/><path d="M20 14a2.5 2.5 0 0 1-2.5 2.5h-4.4a2.5 2.5 0 0 0-1.7 0.7L7 22"/></svg>') center center / contain no-repeat;
+            width: 150px; height: 150px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        .social-icons .icon {
+            width: 24px; height: 24px;
+            display: inline-block;
+        }
+        .social-icons .icon.twitter {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-4 2.4c1-.4 1.7-1 2.1-2.4-1.8 1-4.4 1.6-7.2 1.9-1.5-1.7-3.7-2.8-6.1-2.8-4.7 0-8.5 3.8-8.5 8.5 0 1.4.3 2.7 1 3.8-4.7-.2-9.1-2.5-12-6.1 0 1.9 1.1 3.7 2.7 4.7-1.4-.1-2.8-.4-4-1.1v.1c0 4.6 3.2 8.5 7.6 9.4-1 .3-2 .5-3.1.5-0.7 0-1.4-.1-2.1-.2 1.4 4.4 5.5 7.7 10.3 7.7 6.2 0 11.3-5.1 11.3-11.3v-.5c.8-.5 1.5-1.2 2-2.1z');
+        }
+        .social-icons .icon.linkedin {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-7a2.5 2.5 0 0 1 2.5-2.5Z"/><rect width="7" height="12" x="3" y="9" rx="2"/></svg>');
+        }
+        .social-icons .icon.github {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-github"><path d="M9 19c-4.3 1.5-5-3.2-5-3.2a4.2 4.2 0 0 0-1.7-1.4c-.9-.6.7-.6.7-.6a4.2 4.2 0 0 1 1.3 2.6c.7.6 1.4.9 2.2.7.1-.7.3-1.1.6-1.3C6.5 17.6 5 17 5 17c-.4.7-.7.9-1.2.9-.5.1-.8.4-1.1.7C3.5 19 3.7 19.5 4 20c-.3.7-.3 1.1-.7 1.2-.6.3-1.2.1-1.6-.1-.3-.4-.6-1.1-.8-1.5.3-.3.6-.4.9-.4.5.1.9.3 1.2.5 1.2 1.3 2.7 1.9 4.2 2.2c.7.1 1.3.2 1.8.3.5.1 1.3.2 1.7.5l.2.1c-.3.7-.3 1.2-.7 1.7-1.2 1.1-2.4 1.5-3.7 1.6-.1.1-.2.2-.4.3-.6.4-1.2.5-1.8.3-.5-.2-.9-.6-1.1-1-.1-.6-.4-1.4-.7-2.2a10.9 10.9 0 0 1-1.3-.4c-.1-.4-.2-.8-.3-1.2-.3-.3-.6-.5-1-.7C6 19.8 5.5 19.5 5 19c-.2-.5-.4-1-.5-1.5.3-.3.6-.4.9-.4.4 0 .8.1 1.1.2.2.2.4.5.6.8.6.5 1.3.8 2.1.9.3-.1.5-.1.8-.1.7 0 1.4-.2 1.9-.5.5-.4 1-.9 1.2-1.5.2-.3.3-.6.3-.9 0-.2-.1-.4-.1-.6-.1-.5-.3-1-.4-1.5-.3-.3-.7-.5-1.1-.5-1.1 0-1.9.6-2.3.9-.2.2-.4.4-.6.6-.6.3-1.3.4-2 .2a10.9 10.9 0 0 0-1.2-.5c-.4-.1-.8-.2-1.3-.3-.2-.4-.4-.8-.3-1.3.1-.4.4-.7.8-.8l.5-.1c-.3-.5-.5-1-.5-1.5s.1-1 .4-1.5l-.4-.3c-.4-.4-.7-.9-.7-1.5s.2-1 .5-1.5l-.2-.1c.2-.2.5-.3.8-.4h.2c-.1-.4-.1-.8-.1-1.2 0-.7.1-1.4.3-2 .3-.3.6-.5.9-.7l.4-.3c-.2-.3-.4-.7-.4-1.1-.1-.4-.1-.7-.1-1.1Z"/></svg>');
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+            h2 {
+                font-size: 32px;
+            }
+            h3 {
+                font-size: 24px;
+            }
+            p {
+                font-size: 16px;
+            }
+            .hero h2 {
+                font-size: 24px;
+            }
+            .intro .container, .testimonial-grid, .how-it-works .steps {
+                grid-template-columns: 1fr;
+                gap: calc(var(--spacing-unit) * 4); /* 32px */
+            }
+            header .container {
+                flex-direction: column;
+                gap: 16px;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .hero {
+                background-position: center;
+            }
+            footer .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .concept-icon {
+                width: 40px; height: 40px;
+            }
+            .how-it-works .step-icon {
+                width: 50px; height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="icon"></div>The AI Language
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#concepts">Concepts</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#footer">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="#cta" class="btn btn-primary">Start Your AI Adventure!</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Speak the Language of Smarter Machines!</h1>
+            <h2>Unlock the secrets of AI Agents, how they talk, and how YOU can build them!</h2>
+            <a href="#cta" class="btn btn-primary">Start Your AI Adventure!</a>
+            <div class="illustration" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-robot-no-hair"><path d="M12 8v4.5M12 17.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/><path d="M7.5 12.5h0a1.5 1.5 0 1 0 0-3h0a1.5 1.5 0 0 0 0 3Z"/><path d="M16.5 12.5h0a1.5 1.5 0 1 0 0-3h0a1.5 1.5 0 0 0 0 3Z"/><path d="M20 11.5a8 8 0 1 1-16 0"/><path d="M12 14.5v5.5"/></svg>'); width: 150px; height: 150px; margin: 32px auto 0;"></div>
+        </div>
+    </section>
+
+    <section id="about" class="intro">
+        <div class="container">
+            <div class="intro-image problem">
+                <img src="" alt="Confused Person">
+            </div>
+            <div class="intro-text">
+                <h3>Feeling Lost in the AI Buzz?</h3>
+                <p>AI is everywhere, but understanding *how* it works – especially the exciting world of AI Agents – can feel like deciphering a secret code. Don't worry, we've cracked the Rosetta Stone!</p>
+                <h3>We Speak Your Language (and Theirs!)</h3>
+                <p>The AI Language is your fun, easy-to-understand guide to the core concepts of AI Agents. We break down complex ideas into bite-sized, enjoyable lessons.</p>
+            </div>
+             <div class="intro-image solution">
+                <img src="" alt="Happy Person with AI">
+            </div>
+        </div>
+    </section>
+
+    <section id="concepts" class="concepts">
+        <div class="container">
+            <h2>The Fun Part!</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="concept-icon brain"></div>
+                    <h4>What Makes an Agent Tick?</h4>
+                    <p>Discover how AI Agents understand their world and make decisions. We'll dive into the 'Model Context Protocol' – basically, how they remember and process information to be super smart!</p>
+                </div>
+                <div class="card">
+                    <div class="concept-icon chat"></div>
+                    <h4>When AI Bots Gotta Chat</h4>
+                    <p>Ever wonder how AI Agents collaborate? Learn the 'Agent-to-Agent Protocol' – the secret handshake that allows them to communicate, share tasks, and achieve awesome goals together!</p>
+                </div>
+                <div class="card">
+                    <div class="concept-icon toolkit"></div>
+                    <h4>Your AI Toolkit</h4>
+                    <p>Ready to get hands-on? Explore our 'Agent Development Kit' – a curated collection of resources, libraries, and guides to help you start building your own intelligent agents with ease!</p>
+                </div>
+                <div class="card">
+                    <div class="concept-icon rocket"></div>
+                    <h4>From Zero to Bot Hero!</h4>
+                    <p>We guide you step-by-step through the exciting process of 'Agent Development.' Whether you're a curious beginner or looking to level up your skills, we make building AI Agents a blast!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2>Don't Just Take Our Word For It!</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <img src="https://via.placeholder.com/80/FFB800/FFFFFF?text=A" alt="Alex T. Avatar">
+                    <div class="quote-bubble">
+                        <p class="quote-text">I always thought AI Agents were super complicated, but The AI Language made it actually fun and understandable! I'm already planning my first bot!</p>
+                    </div>
+                    <p class="name">Alex T.</p>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://via.placeholder.com/80/6A1FCC/FFFFFF?text=S" alt="Sam K. Avatar">
+                    <div class="quote-bubble">
+                        <p class="quote-text">The way they explain the protocols is brilliant! It's like learning a new language, but with more robots and less grammar homework. Highly recommend!</p>
+                    </div>
+                    <p class="name">Sam K.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="works" class="how-it-works">
+        <div class="container">
+            <h2>Your Fun Path to AI Fluency</h2>
+            <div class="steps">
+                <div>
+                    <div class="step-icon search"></div>
+                    <h4>Explore</h4>
+                    <p>Dive into our easy-to-digest modules on AI Agents and protocols.</p>
+                </div>
+                <div>
+                    <div class="step-icon lightbulb"></div>
+                    <h4>Understand</h4>
+                    <p>Grasp the core concepts with fun examples and interactive explanations.</p>
+                </div>
+                <div>
+                    <div class="step-icon cpu"></div>
+                    <h4>Build</h4>
+                    <p>Use our kits and guides to start creating your own AI Agents!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-bottom">
+        <div class="container">
+            <h2>Ready to Become an AI Whisperer?</h2>
+            <p>Join our community of aspiring AI builders and start your exciting journey today. No jargon, just pure, unadulterated AI fun!</p>
+            <a href="#start" class="btn btn-secondary">Let's Build Some Bots!</a>
+            <div class="illustration"></div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container">
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#concepts">Concepts</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#footer">Contact</a>
+            </nav>
+            <div class="social-icons">
+                <a href="#" aria-label="Twitter"><div class="icon twitter"></div></a>
+                <a href="#" aria-label="LinkedIn"><div class="icon linkedin"></div></a>
+                <a href="#" aria-label="GitHub"><div class="icon github"></div></a>
+            </div>
+            <div class="copyright">
+                <small>&copy; 2023 The AI Language. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
